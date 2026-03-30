@@ -9,6 +9,6 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession s = req.getSession(false);
         if (s != null) s.invalidate();
-        resp.sendRedirect("login.jsp");
+        resp.sendRedirect("index.html");
     }
 }
