@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 
         if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
             req.setAttribute("loginError", "Vui lòng nhập tên đăng nhập và mật khẩu.");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.getRequestDispatcher("index.html").forward(req, resp);
             return;
         }
 
