@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="center">
+    <form class="card" method="post" action="login">
+      <h2 class="title">Đăng nhập</h2>
+      <label class="label" for="username">Tên đăng nhập</label>
+      <input id="username" name="username" type="text" required class="input">
+      <label class="label" for="password">Mật khẩu</label>
+      <input id="password" name="password" type="password" required class="input">
+      <button type="submit" class="btn">Đăng nhập</button>
+      <p class="error" id="errorMsg"></p>
+      <p class="muted">Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+    </form>
+  </main>
+</body>
+</html>

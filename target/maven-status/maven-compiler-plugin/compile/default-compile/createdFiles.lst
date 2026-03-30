@@ -1,0 +1,4 @@
+com\example\auth\DBUtil.class
+com\example\auth\RegistrationServlet.class
+com\example\auth\LoginServlet.class
+com\example\auth\LogoutServlet.class
