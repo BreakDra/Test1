@@ -1,7 +1,0 @@
-:root{--bg:#f4f6f8;--card:#fff;--primary:#1976d2;--muted:#6b7280;--radius:8px;--shadow:0 6px 18px rgba(15,23,42,0.06)}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;background:var(--bg);color:#0f172a}
-.center{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.card{width:100%;max-width:520px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;border:1px solid rgba(15,23,42,0.04);text-align:center}
-.btn{padding:10px 16px;background:var(--primary);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600}
