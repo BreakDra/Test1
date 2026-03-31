@@ -1,3 +1,14 @@
+package com.example.auth;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.sql.*;
+import org.mindrot.jbcrypt.BCrypt;
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @Override
@@ -10,8 +21,9 @@ public class LoginServlet extends HttpServlet {
         String ip = req.getRemoteAddr();
 
         if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
-            req.setAttribute("loginError", "Vui lòng nhập tên đăng nhập và mật khẩu.");
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            String msg = "Vui lòng nhập tên đăng nhập và mật khẩu.";
+            String encoded = URLEncoder.encode(msg, StandardCharsets.UTF_8.toString());
+            resp.sendRedirect(req.getContextPath() + "/index.html?error=" + encoded);
             return;
         }
 
@@ -29,6 +41,7 @@ public class LoginServlet extends HttpServlet {
                 }
             }
 
+            // Ghi log lần đăng nhập (lưu hash của mật khẩu nhập)
             String attemptHash = BCrypt.hashpw(password, BCrypt.gensalt(10));
             try (PreparedStatement logPs = conn.prepareStatement(
                     "INSERT INTO login_logs (username, attempted_password_hash, success, ip_address) VALUES (?, ?, ?, ?)")) {
@@ -40,6 +53,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
+            // Ghi log server (không in mật khẩu)
             e.printStackTrace();
             throw new ServletException(e);
         }
@@ -49,13 +63,14 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", username.trim());
             resp.sendRedirect(req.getContextPath() + "/success.jsp");
         } else {
-            req.setAttribute("loginError", "Tên đăng nhập hoặc mật khẩu không đúng");
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            String msg = "Tên đăng nhập hoặc mật khẩu không đúng";
+            String encoded = URLEncoder.encode(msg, StandardCharsets.UTF_8.toString());
+            resp.sendRedirect(req.getContextPath() + "/index.html?error=" + encoded);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect(req.getContextPath() + "/index.jsp");
+        resp.sendRedirect(req.getContextPath() + "/index.html");
     }
 }
