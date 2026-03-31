@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
         if (success) {
             HttpSession session = req.getSession(true);
             session.setAttribute("user", username.trim());
-            resp.sendRedirect(req.getContextPath() + "/success.jsp");
+            resp.sendRedirect(req.getContextPath() + "webapp/success.jsp");
         } else {
             String msg = "Tên đăng nhập hoặc mật khẩu không đúng";
             String encoded = URLEncoder.encode(msg, StandardCharsets.UTF_8.toString());
