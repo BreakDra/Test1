@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .error { color: #b00020; margin-top: 12px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <main class="center">
+    <!-- form action: nếu index.html nằm ở gốc context, action="login" là OK -->
+    <form class="card" method="post" action="login" id="loginForm">
+      <h2 class="title">Đăng nhập</h2>
+      <label class="label" for="username">Tên đăng nhập</label>
+      <input id="username" name="username" type="text" required class="input">
+      <label class="label" for="password">Mật khẩu</label>
+      <input id="password" name="password" type="password" required class="input">
+      <button type="submit" class="btn">Đăng nhập</button>
+      <p class="error hidden" id="errorMsg"></p>
+      <p class="muted">Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+    </form>
+  </main>
+
+  <script>
+    // Lấy parameter error từ URL và hiển thị
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const err = params.get('error');
+      if (err) {
+        try {
+          // decodeURIComponent vì servlet sẽ URL-encode thông báo
+          const msg = decodeURIComponent(err);
+          const el = document.getElementById('errorMsg');
+          el.textContent = msg;
+          el.classList.remove('hidden');
+        } catch (e) {
+          console.error('Error decoding message', e);
+        }
+        // Xóa query param khỏi URL để tránh hiển thị lại khi reload
+        const url = new URL(window.location);
+        url.search = '';
+        history.replaceState(null, '', url.toString());
+      }
+    })();
+  </script>
+</body>
+</html>
